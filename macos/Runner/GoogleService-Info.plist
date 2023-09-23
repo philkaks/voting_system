@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBjpa1QTei5I5ZYdKsyXqe38iJJ2NBYEfw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>133266154782</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.votingSystem.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>finalprojectq</string>
+	<key>STORAGE_BUCKET</key>
+	<string>finalprojectq.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:133266154782:ios:4d07628ff959a02d3dd50f</string>
+	<key>DATABASE_URL</key>
+	<string>https://finalprojectq-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

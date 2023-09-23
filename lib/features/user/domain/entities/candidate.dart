@@ -1,4 +1,5 @@
-class Candidate {
+import 'package:equatable/equatable.dart';
+class Candidate extends Equatable{
   final String name;
   final int age;
   final String position;
@@ -7,7 +8,7 @@ class Candidate {
   final String imageUrl;
   final String currentOffice;
 
-  Candidate({
+ const Candidate({
     required this.name,
     required this.age,
     required this.position,
@@ -16,4 +17,7 @@ class Candidate {
     required this.currentOffice,
     required this.imageUrl,
   });
+
+  @override
+  List<Object?> get props => [name, age, position, party, manifesto, currentOffice, imageUrl];
 }
