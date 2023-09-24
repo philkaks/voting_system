@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:voting_system/features/user/data/data_sources/remote/online_storage.dart';
 import '../../../../core/failure/failure.dart';
 import '../../domain/repository_interfaces/repository_interface.dart';
@@ -22,21 +23,31 @@ class UserRepositoryImplementation implements UserRepositoryInterface {
   }
 
   @override
-  Future<Either<Failure, void>> addProduct(CandidateModel user) async {
+  Future< void> registerUserWithEmailAndPassword(TextEditingController email, TextEditingController password) async {
     try {
-      return Right(await FirebaseService().createOrUpdate());
-    } on Failure catch (failure) {
-      return Left(failure);
+      return await FirebaseService().registerUserWithEmailAndPassword(email, password);
+    } on Failure catch (_) {
+      rethrow ;
+    }
+  }
+
+
+  @override
+  Future< void> addProduct(CandidateModel candidate) async {
+    try {
+      
+      return await FirebaseService().addData(candidate);
+    } on Failure catch (_) {
+      rethrow ;
     }
   }
 
   @override
-  Future<Either<Failure, void>> deleteData(String id) async {
+  Future< void> deleteData(String id) async {
     try {
-      // await userDataSource.deleteData(id);
-      return Right(await FirebaseService().deleteData(id));
-    } on Failure catch (failure) {
-      return Left(failure);
+      return await FirebaseService().deleteData(id);
+    } on Failure catch (_) {
+      rethrow ;
     }
   }
 }

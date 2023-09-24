@@ -1,22 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:voting_system/features/user/presentation/pages/candidates_view.dart';
-import 'package:voting_system/features/user/presentation/widgets/candidate_list.dart';
 
 import 'features/user/domain/usecases/firebase_options.dart';
+import 'features/user/presentation/pages/add_candidate.dart';
+import 'features/user/presentation/pages/sign_in.dart';
+import 'features/user/presentation/pages/sign_up.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
-
-
-
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,15 +20,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Voting System',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home:  CandidatesView());
-    
+        title: 'Voting System',
+        theme: ThemeData(
+          useMaterial3: true,
+        ),
+        home: 
+        const SignInPage()
+        //  SignUpPage()
+        //  AddCandidatePage()
+        // CandidatesView()
+        );
   }
 }
-
-
-
