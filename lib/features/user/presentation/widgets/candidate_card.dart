@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:voting_system/features/user/data/models/candidate_model.dart';
-import 'package:voting_system/features/user/domain/entities/candidate.dart';
-
 import '../../../../core/typography/typography.dart';
 
 class CandidateCard extends StatelessWidget {

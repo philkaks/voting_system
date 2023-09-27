@@ -159,6 +159,7 @@ class AddCandidatePageState extends State<AddCandidatePage> {
                           manifesto: manifesto,
                           imageUrl: imageUrl,
                           currentOffice: currentOffice,
+                          votes: 0,
                           id: FirebaseFirestore.instance
                               .collection('candidates')
                               .doc()

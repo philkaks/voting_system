@@ -33,7 +33,7 @@ class UserRepositoryImplementation implements UserRepositoryInterface {
 
 
   @override
-  Future< void> addProduct(CandidateModel candidate) async {
+  Future< void> addPerson(CandidateModel candidate) async {
     try {
       
       return await FirebaseService().addData(candidate);

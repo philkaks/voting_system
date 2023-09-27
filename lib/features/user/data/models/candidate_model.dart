@@ -9,6 +9,7 @@ class CandidateModel {
   final String imageUrl;
   final String currentOffice;
   final String id;
+  final int votes;
 
   CandidateModel({
     required this.name,
@@ -19,8 +20,8 @@ class CandidateModel {
     required this.imageUrl,
     required this.currentOffice,
     required this.id,
+    required this.votes ,
   });
-  
 
   factory CandidateModel.fromFirestore(
     DocumentSnapshot snapshot,
@@ -36,7 +37,7 @@ class CandidateModel {
       imageUrl: snapshot['imageUrl'] ?? '',
       currentOffice: snapshot['currentOffice'] ?? '',
       id: snapshot['id'] ?? 0,
-      
+      votes: snapshot['votes'] ?? 0,
     );
   }
 
@@ -50,6 +51,7 @@ class CandidateModel {
       'imageUrl': imageUrl,
       'currentOffice': currentOffice,
       'id': id,
+      'votes': votes,
     };
   }
 }
