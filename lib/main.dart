@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:voting_system/features/user/presentation/pages/candidates_view.dart';
+import 'package:voting_system/features/user/presentation/pages/profile.dart';
 
 import 'features/user/domain/usecases/firebase_options.dart';
+import 'features/user/presentation/pages/sign_in.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,10 +23,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
         ),
-        home:
-            // const SignInPage()
+        home: 
+            const SignInPage()
             //  SignUpPage()
             //  AddCandidatePage()
-            CandidatesView());
+            // CandidatesView()
+            );
   }
 }

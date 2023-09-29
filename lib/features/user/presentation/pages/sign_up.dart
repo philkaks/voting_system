@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:voting_system/features/user/data/models/candidate_model.dart';
 import 'package:voting_system/features/user/presentation/pages/sign_in.dart';
 import 'package:voting_system/features/user/presentation/widgets/input_field.dart';
 import '../../data/repositories_implementation/repo_implemtation.dart';
@@ -14,7 +14,7 @@ class SignUpPage extends StatelessWidget {
 
   final UserRepositoryImplementation userRepository =
       UserRepositoryImplementation();
-      final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -30,27 +30,35 @@ class SignUpPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text('Sign Up'),
-                  InputFieldWidget(emailController: _nameController,
-                   labelText: 'Name',
-                    errorText: ''),
-                  InputFieldWidget(emailController: _emailController, 
-                  labelText: 'Email',
-                   errorText: 'Please enter your email',),
+                  InputFieldWidget(
+                      emailController: _nameController,
+                      labelText: 'Name',
+                      errorText: ''),
                   const SizedBox(height: 16.0),
-                  InputFieldWidget(emailController: _passwordController,
+                  InputFieldWidget(
+                    emailController: _emailController,
+                    labelText: 'Email',
+                    errorText: 'Please enter your email',
+                  ),
+                  const SizedBox(height: 16.0),
+                  InputFieldWidget(
+                    emailController: _passwordController,
                     labelText: 'Password',
-                      errorText: 'Please enter your password',),
+                    errorText: 'Please enter your password',
+                  ),
                   const SizedBox(height: 16.0),
                   ElevatedButton(
                     onPressed: () async {
-                      userRepository.registerUserWithEmailAndPassword(
-                          _emailController, _passwordController).then((value) => 
-                          _firestore.collection('VotingUsers').add({
-                            'username': _nameController.text,
-                            'email': _emailController.text,
-                            'password': _passwordController.text,
-                          })
-                          );
+                      userRepository
+                          .registerUserWithEmailAndPassword(
+                              _emailController, _passwordController)
+                          .then((value) =>
+                              _firestore.collection('VotingUsers').add({
+                                'username': _nameController.text,
+                                'email': _emailController.text,
+                                'password': _passwordController.text,
+                                'id': FirebaseAuth.instance.currentUser!.uid,
+                              }));
 
                       Navigator.push(
                         context,

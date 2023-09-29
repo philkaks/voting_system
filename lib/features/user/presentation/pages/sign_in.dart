@@ -30,7 +30,7 @@ class SignInPageState extends State<SignInPage> {
       );
       // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => CandidatesView()));
+          MaterialPageRoute(builder: (context) => const CandidatesView()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -86,6 +86,7 @@ class SignInPageState extends State<SignInPage> {
                       emailController: _passwordController,
                       labelText: 'Password',
                       errorText: 'Please enter your password',
+                      obscureText: true,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     ElevatedButton(
