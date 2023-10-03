@@ -7,6 +7,8 @@ class Candidate extends Equatable{
   final String manifesto;
   final String imageUrl;
   final String currentOffice;
+  final String id;
+  final int votes;
 
  const Candidate({
     required this.name,
@@ -16,8 +18,10 @@ class Candidate extends Equatable{
     required this.manifesto,
     required this.currentOffice,
     required this.imageUrl,
+    required this.id,
+    required this.votes,
   });
 
   @override
-  List<Object?> get props => [name, age, position, party, manifesto, currentOffice, imageUrl];
+  List<Object?> get props => [name, age, position, party, manifesto, currentOffice, imageUrl, id, votes];
 }

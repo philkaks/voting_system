@@ -4,6 +4,7 @@ import 'package:voting_system/features/user/presentation/pages/candidates_view.d
 import 'package:voting_system/features/user/presentation/pages/profile.dart';
 
 import 'features/user/domain/usecases/firebase_options.dart';
+import 'features/user/presentation/pages/admin_graphs.dart';
 import 'features/user/presentation/pages/sign_in.dart';
 
 void main() async {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
             //  SignUpPage()
             //  AddCandidatePage()
             // CandidatesView()
+            // AdminPage()
             );
   }
 }

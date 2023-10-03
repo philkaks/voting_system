@@ -13,6 +13,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class SignInPageState extends State<SignInPage> {
+  bool isAdmin = false;
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -57,7 +58,7 @@ class SignInPageState extends State<SignInPage> {
     return Scaffold(
       body: Center(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.5,
+          height: MediaQuery.of(context).size.height * 0.6,
           width: MediaQuery.of(context).size.width * 0.25,
           child: Form(
             key: _formKey,
@@ -88,6 +89,15 @@ class SignInPageState extends State<SignInPage> {
                       errorText: 'Please enter your password',
                       obscureText: true,
                     ),
+                    const SizedBox(height: 16.0),
+                    isAdmin
+                        ? InputFieldWidget(
+                            emailController: _passwordController,
+                            labelText: 'Admin ID',
+                            errorText: 'Please enter your password',
+                            obscureText: true,
+                          )
+                        : const SizedBox(),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     ElevatedButton(
                       onPressed: _isLoading
@@ -103,23 +113,42 @@ class SignInPageState extends State<SignInPage> {
                     ),
                     const SizedBox(height: 20.0),
                     TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUpPage()),
-                          );
-                        },
-                        child: RichText(
-                            text: const TextSpan(
-                                text: 'Don\'t have an account? ',
-                                style: TextStyle(color: Colors.black),
-                                children: [
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUpPage()),
+                        );
+                      },
+                      child: RichText(
+                        text: const TextSpan(
+                            text: 'Don\'t have an account? ',
+                            style: TextStyle(color: Colors.black),
+                            children: [
                               TextSpan(
                                 text: 'Sign Up',
                                 style: TextStyle(color: Colors.blue),
                               )
-                            ]))),
+                            ]),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          isAdmin = !isAdmin;
+                        });
+                      },
+                      child: RichText(
+                        text: const TextSpan(
+                            text: 'if you are an admin, ',
+                            style: TextStyle(color: Colors.black),
+                            children: [
+                              TextSpan(
+                                text: 'click here',
+                                style: TextStyle(color: Colors.blue),
+                              )
+                            ]),
+                      ),
+                    ),
                   ],
                 ),
               ),
