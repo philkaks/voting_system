@@ -1,10 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:voting_system/features/user/presentation/pages/candidates_view.dart';
-import 'package:voting_system/features/user/presentation/pages/profile.dart';
-
 import 'features/user/domain/usecases/firebase_options.dart';
-import 'features/user/presentation/pages/admin_graphs.dart';
 import 'features/user/presentation/pages/sign_in.dart';
 
 void main() async {

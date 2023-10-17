@@ -1,12 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
 import 'package:voting_system/features/user/data/models/candidate_model.dart';
+
 import '../../../../core/typography/typography.dart';
 
 class CandidateCard extends StatefulWidget {
   final CandidateModel candidate;
+  // final  candidateRef;
 
-  CandidateCard({Key? key, required this.candidate}) : super(key: key);
+  CandidateCard({
+    Key? key,
+    required this.candidate,
+    // required this.candidateRef,
+  }) : super(key: key);
   bool isVoted = false;
   @override
   State<CandidateCard> createState() => _CandidateCardState();
@@ -53,28 +60,26 @@ class _CandidateCardState extends State<CandidateCard> {
                   SizedBox(
                     width: 180,
                     child: ElevatedButton(
-                        onPressed: () {
-                          // candidateRef.update({
-                          //   'votes': FieldValue.increment(1),
-                          // });
-                          // setState(() {
-                          //   widget.isVoted = !widget.isVoted;
-                          // });
-                        },
+                        onPressed: () {},
                         child: Row(
                           children: [
                             IconButton(
                               onPressed: () {
-                                
                                 candidateRef.update({
                                   'votes': widget.isVoted
                                       ? FieldValue.increment(-1)
                                       : FieldValue.increment(1),
-                                }).then((value) => setState(() {
-                                  widget.isVoted = !widget.isVoted;
-                                }));
-                                
-                                
+                                }).then((value) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      elevation: 4,
+                                      content: Text('Thank you for voting!'),
+                                    ),
+                                  );
+                                  setState(() {
+                                    widget.isVoted = !widget.isVoted;
+                                  });
+                                });
                               },
                               icon: Icon(
                                 Icons.thumb_up,
@@ -87,7 +92,6 @@ class _CandidateCardState extends State<CandidateCard> {
                           ],
                         )),
                   ),
-                  
                   const SizedBox(width: 8),
                 ],
               ),

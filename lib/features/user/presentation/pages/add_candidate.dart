@@ -4,7 +4,6 @@ import 'package:voting_system/features/user/data/models/candidate_model.dart';
 
 import 'candidates_view.dart';
 
-
 class AddCandidatePage extends StatefulWidget {
   const AddCandidatePage({super.key});
 
@@ -120,18 +119,7 @@ class AddCandidatePageState extends State<AddCandidatePage> {
                   return null;
                 },
               ),
-              // TextFormField(
-              //   controller: _idController,
-              //   decoration: const InputDecoration(
-              //     labelText: 'ID',
-              //   ),
-              //   validator: (value) {
-              //     if (value!.isEmpty) {
-              //       return 'Please enter an ID';
-              //     }
-              //     return null;
-              //   },
-              // ),
+              
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () async {
@@ -164,14 +152,21 @@ class AddCandidatePageState extends State<AddCandidatePage> {
                               .collection('candidates')
                               .doc()
                               .id,
-                        ).toFirestore());
+                        ).toFirestore())
+                        .then((value) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Candidate Added'),
+                        ),
+                      );
+                    });
                   }
                   setState(() {
                     isLoading = false;
                   });
                   // ignore: use_build_context_synchronously
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return CandidatesView();
+                    return const CandidatesView();
                   }));
                 },
                 child: isLoading

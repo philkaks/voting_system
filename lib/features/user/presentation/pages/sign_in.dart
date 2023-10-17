@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:voting_system/features/user/presentation/pages/admin_graphs.dart';
 import 'package:voting_system/features/user/presentation/pages/sign_up.dart';
 
 import '../widgets/input_field.dart';
@@ -17,6 +18,7 @@ class SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _adminIdController = TextEditingController();
   bool _isLoading = false;
 
   Future<void> _signInWithEmailAndPassword() async {
@@ -30,8 +32,7 @@ class SignInPageState extends State<SignInPage> {
         password: _passwordController.text.trim(),
       );
       // ignore: use_build_context_synchronously
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const CandidatesView()));
+      
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -58,7 +59,7 @@ class SignInPageState extends State<SignInPage> {
     return Scaffold(
       body: Center(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.6,
+          height: MediaQuery.of(context).size.height * 0.7,
           width: MediaQuery.of(context).size.width * 0.25,
           child: Form(
             key: _formKey,
@@ -92,7 +93,7 @@ class SignInPageState extends State<SignInPage> {
                     const SizedBox(height: 16.0),
                     isAdmin
                         ? InputFieldWidget(
-                            emailController: _passwordController,
+                            emailController: _adminIdController,
                             labelText: 'Admin ID',
                             errorText: 'Please enter your password',
                             obscureText: true,
@@ -100,11 +101,32 @@ class SignInPageState extends State<SignInPage> {
                         : const SizedBox(),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     ElevatedButton(
-                      onPressed: _isLoading
-                          ? null
+                      onPressed: isAdmin
+                          ? () {
+                              if (_formKey.currentState!.validate() &&
+                                  _adminIdController.text ==
+                                      '1234567890') {
+                                _signInWithEmailAndPassword().then((value) => 
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const AdminPage()),
+                                )
+                                
+                                );
+                              }
+                            }
                           : () {
                               if (_formKey.currentState!.validate()) {
-                                _signInWithEmailAndPassword();
+                                _signInWithEmailAndPassword().then((value) => 
+                                
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const CandidatesView()),
+                                )
+                                
+                                );
                               }
                             },
                       child: _isLoading

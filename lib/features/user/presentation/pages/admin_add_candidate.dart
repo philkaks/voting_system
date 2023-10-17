@@ -11,8 +11,7 @@ class AdminAddCandiate extends StatefulWidget {
 }
 
 class _AdminAddCandiateState extends State<AdminAddCandiate> {
-// List<CandidateModel> candidates = [];
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+//
   final TextEditingController nameController = TextEditingController();
   final TextEditingController partyController = TextEditingController();
   final TextEditingController imageUrlController = TextEditingController();
@@ -27,31 +26,36 @@ class _AdminAddCandiateState extends State<AdminAddCandiate> {
     final String manifesto = manifestoController.text;
     final String currentOffice = currentOfficeController.text;
     final int age = int.tryParse(ageController.text) ?? 0;
+    final collectionReference = FirebaseFirestore.instance.collection('candidates');
+final documentReference = collectionReference.doc(); // Create a new document reference
+
+// Now, you can get the auto-generated document ID and assign it to your CandidateModel's id field
+final String documentID = documentReference.id;
+
+// Create a CandidateModel and set the ID
+final candidate = CandidateModel(
+  name: name,
+  party: party,
+  imageUrl: imageUrl,
+  manifesto: manifesto,
+  currentOffice: currentOffice,
+  age: age,
+  position: 'President',
+  votes: 0,
+  id: documentID, // Assign the auto-generated document ID here
+);
+
 
     if (name.isNotEmpty && party.isNotEmpty) {
-      setState(() {
-        // candidates.add();
-
-        _firestore.collection('candidates').add(CandidateModel(
-              name: name,
-              party: party,
-              imageUrl: imageUrl,
-              manifesto: manifesto,
-              currentOffice: currentOffice,
-              age: age,
-              position: 'President',
-              votes: 0,
-              id: '12345',
-            ).toFirestore());
-      });
-
-      nameController.clear();
-      partyController.clear();
-      imageUrlController.clear();
-      manifestoController.clear();
-      currentOfficeController.clear();
-      ageController.clear();
-    }
+      // Add the CandidateModel to Firestore
+documentReference.set(candidate.toFirestore()).then((value) => ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Candidate Added'),
+                  ),
+                ));
+  
+  }
+  
   }
 
   @override

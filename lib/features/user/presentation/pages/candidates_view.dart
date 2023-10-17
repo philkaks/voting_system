@@ -5,7 +5,6 @@ import 'package:voting_system/features/user/presentation/pages/voting_guidlines.
 import 'package:voting_system/features/user/presentation/widgets/candidate_card.dart';
 import '../../data/repositories_implementation/repo_implemtation.dart';
 
-// ignore: must_be_immutable
 class CandidatesView extends StatefulWidget {
   const CandidatesView({
     super.key,
@@ -36,7 +35,7 @@ class _CandidatesViewState extends State<CandidatesView> {
           IconButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Profile();
+                  return const Profile();
                 }));
               },
               icon: const Icon(Icons.person_3)),
@@ -99,43 +98,44 @@ class _CandidatesViewState extends State<CandidatesView> {
             ),
             if (selectedIndex == 0) ...[
               // Display widgets for President
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.55,
-                child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: FutureBuilder<List<CandidateModel>>(
-                      future: repo.getData(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<CandidateModel>> snapshot) {
-                        if (snapshot.hasData) {
-                          // print('has data..........................');
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              return CandidateCard(
-                                  candidate: snapshot.data![index]);
-                            },
-                          );
-                        } else {
-                          // print('no data');
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      },
-                    )),
-              )
+              fetchCandidates(context)
             ] else if (selectedIndex == 1) ...[
               // Display widgets for Vice-President
-              const Text('Vice-President candidates'),
+              fetchCandidates(context)
             ] else if (selectedIndex == 2) ...[
               // Display widgets for Prime Minister
-              const Text('Prime Minister Candidates'),
+              Text ('Prime Minister')
             ],
           ],
         ),
       ),
+    );
+  }
+
+  SizedBox fetchCandidates(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.55,
+      child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: FutureBuilder<List<CandidateModel>>(
+            future: repo.getData(),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<CandidateModel>> snapshot) {
+              if (snapshot.hasData) {
+                  return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return CandidateCard(candidate: snapshot.data![index], );
+                  },
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          )),
     );
   }
 }
